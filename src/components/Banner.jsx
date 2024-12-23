@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import banner from "../assets/rb_6974.png"
 
 const Banner = () => {
@@ -15,7 +16,9 @@ const Banner = () => {
                         <p className="mb-5">
                         Collaborate with friends, complete assignments, and grade each other. Learn and grow together! Turn every study session into a fun and productive experience!
                         </p>
-                        <button className="btn btn-primary">Register Now!</button>
+                        <button className="btn btn-primary">
+                            <Link to="/auth/register">Register Now!</Link>
+                        </button>
                     </div>
                 </div>
             </div>
