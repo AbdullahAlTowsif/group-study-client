@@ -10,7 +10,7 @@ const Footer = () => {
           <div>
             <h2 className="font-bold text-lg">GroupStudy</h2>
             <p className="mt-2 text-sm">
-              A platform for students to collaborate, complete assignments, and grade each other's work. Learn and grow together!
+              A platform for students to collaborate, complete assignments, and grade each other&apos;s work. Learn and grow together!
             </p>
           </div>
 
