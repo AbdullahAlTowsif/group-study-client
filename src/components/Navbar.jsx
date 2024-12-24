@@ -25,7 +25,7 @@ const Navbar = () => {
               <Link to="/assignments">Assignments</Link>
             </li>
             <li>
-              <Link to="/pendingAssignments">Pending Assignments</Link>
+              <Link to={`/pending-assignments/${user?.email}`}>Pending Assignments</Link>
             </li>
             {!user && (
               <li>
@@ -104,7 +104,7 @@ const Navbar = () => {
                 <Link to="/assignments">Assignments</Link>
               </li>
               <li>
-                <Link to="/pendingAssignments">Pending Assignments</Link>
+                <Link to={`/pending-assignments/${user?.email}`}>Pending Assignments</Link>
               </li>
               {user && (
                 <>
