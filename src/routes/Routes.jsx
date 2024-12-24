@@ -6,6 +6,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import Register from "../pages/Register";
 import CreateAssignment from "../pages/CreateAssignment";
 import AssignmentsPage from "../pages/AssignmentsPage";
+import UpdateAssignmentPage from "../pages/UpdateAssignmentPage";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
     {
         path: "/assignments",
         element: <AssignmentsPage></AssignmentsPage>,
+    },
+    {
+        path: "/assignments/update/:id",
+        element: <UpdateAssignmentPage></UpdateAssignmentPage>,
     },
     {
         path: '/auth',
