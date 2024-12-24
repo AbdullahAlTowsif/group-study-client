@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import CreateAssignment from "../pages/CreateAssignment";
 import AssignmentsPage from "../pages/AssignmentsPage";
 import UpdateAssignmentPage from "../pages/UpdateAssignmentPage";
+import AssignmentDetailsPage from "../pages/AssignmentDetailsPage";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
     {
         path: "/assignments/update/:id",
         element: <UpdateAssignmentPage></UpdateAssignmentPage>,
+    },
+    {
+        path: '/assignments/:id',
+        element: <AssignmentDetailsPage></AssignmentDetailsPage>,
     },
     {
         path: '/auth',
