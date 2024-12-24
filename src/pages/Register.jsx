@@ -1,8 +1,55 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Lottie from "react-lottie";
-import animationData from "../assets/register-animation.json"; // Replace with your own Lottie animation JSON file
+import animationData from "../assets/register-animation.json";
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Register = () => {
+    const { createNewUser, setUser, updateUserProfile } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const validatePassword = (password) => {
+        if (!/[A-Z]/.test(password)) {
+            return "Password must contain at least one uppercase letter.";
+        }
+        if (!/[a-z]/.test(password)) {
+            return "Password must contain at least one lowercase letter.";
+        }
+        if (password.length < 6) {
+            return "Password must be at least 6 characters long.";
+        }
+        return ""; // Valid password
+    };
+
+    const handleRegister = async e => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const name = form.name.value;
+        const photo = form.photo.value;
+        const password = form.password.value;
+        console.table({email, name, photo, password})
+
+        const passwordError = validatePassword(password);
+        if(passwordError){
+            toast.error(passwordError)
+            return;
+        }
+
+        try{
+            const result = await createNewUser(email, password)
+            console.log(result);
+            await updateUserProfile(name, photo)
+            setUser({...result.user, photoURL: photo, displayName: name})
+            toast.success('Signup Successful')
+            navigate('/')
+        }
+        catch(err){
+            console.log(err);
+            toast.error(err?.message)
+        }
+    }
 
     // Lottie animation options
     const defaultOptions = {
@@ -15,7 +62,7 @@ const Register = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-white"> {/* Changed background to white */}
+        <div className="flex items-center justify-center min-h-screen bg-white">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
                 {/* Lottie animation */}
                 <div className="flex justify-center mb-6">
@@ -24,13 +71,13 @@ const Register = () => {
 
                 <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
 
-                <form className="space-y-4">
+                <form onSubmit={handleRegister} className="space-y-4">
                     {/* Name Field */}
                     <div>
                         <label className="block text-sm font-semibold text-gray-700">Name</label>
                         <input
                             type="text"
-                            value=""
+                            name="name"
                             required
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
@@ -41,7 +88,7 @@ const Register = () => {
                         <label className="block text-sm font-semibold text-gray-700">Email</label>
                         <input
                             type="email"
-                            value=""
+                            name="email"
                             required
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
@@ -52,7 +99,7 @@ const Register = () => {
                         <label className="block text-sm font-semibold text-gray-700">Profile Photo URL</label>
                         <input
                             type="url"
-                            value=""
+                            name="photo"
                             required
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
@@ -63,7 +110,7 @@ const Register = () => {
                         <label className="block text-sm font-semibold text-gray-700">Password</label>
                         <input
                             type="password"
-                            value=""
+                            name="password"
                             required
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />

@@ -68,23 +68,38 @@ const AuthProvider = ({ children }) => {
     }
 
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                setUser({
-                    uid: currentUser.uid,
-                    email: currentUser.email,
-                    name: currentUser.displayName,
-                    photoURL: currentUser.photoURL || "",
-                });
-            } else {
-                setUser(null);
-            }
-            // setLoading(false);
-        });
+    // useEffect(() => {
+    //     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    //         if (currentUser) {
+    //             setUser({
+    //                 uid: currentUser.uid,
+    //                 email: currentUser.email,
+    //                 name: currentUser.displayName,
+    //                 photoURL: currentUser.photoURL || "",
+    //             });
+    //         } else {
+    //             setUser(null);
+    //         }
+    //         // setLoading(false);
+    //     });
 
-        return () => unsubscribe();
-    }, []);
+    //     return () => unsubscribe();
+    // }, []);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, async currentUser => {
+          console.log('CurrentUser-->', currentUser)
+          if (currentUser?.email) {
+            setUser(currentUser)
+          } else {
+            setUser(currentUser)
+          }
+        //   setLoading(false)
+        })
+        return () => {
+          return unsubscribe()
+        }
+      }, [])
 
 
 

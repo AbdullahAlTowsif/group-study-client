@@ -1,9 +1,42 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Lottie from "react-lottie";
 import animationData from "../assets/login-animation.json"; // You can replace this with your own Lottie animation JSON file
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Login = () => {
+    const { googleSignIn, userLogin } = useContext(AuthContext);
+    const navigate = useNavigate()
+
+    const handleLogin = async e => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.table({email, password})
+
+        try{
+            await userLogin(email, password)
+            toast.success('SignIn Successful')
+            navigate('/')
+        }
+        catch(err){
+            toast.error(err?.message)
+        }
+    }
+
+    const hanldeGoogleSignIn = async () => {
+        try{
+            await googleSignIn()
+            toast.success('SignIn Successful')
+            navigate('/')
+        }
+        catch(err){
+            console.log(err);
+            toast.error(err?.message)
+        }
+    }
 
     // Lottie animation options
     const defaultOptions = {
@@ -24,13 +57,13 @@ const Login = () => {
                 </div>
                 <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
 
-                <form className="space-y-4">
+                <form onSubmit={handleLogin} className="space-y-4">
                     {/* Email Field */}
                     <div>
                         <label className="block text-sm font-semibold text-gray-700">Email</label>
                         <input
                             type="email"
-                            value=""
+                            name="email"
                             required
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
@@ -41,7 +74,7 @@ const Login = () => {
                         <label className="block text-sm font-semibold text-gray-700">Password</label>
                         <input
                             type="password"
-                            value=""
+                            name="password"
                             required
                             className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
@@ -58,6 +91,7 @@ const Login = () => {
 
                 {/* Google Login Button */}
                 <button
+                    onClick={hanldeGoogleSignIn}
                     className="w-full bg-red-500 text-white py-3 mt-4 rounded-lg hover:bg-red-600 transition"
                 >
                     Login with Google
@@ -78,71 +112,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
-
-
-
-// import { Link } from "react-router-dom";
-
-// const Login = () => {
-
-//   return (
-//     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-//       <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
-//         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
-//         {/* {error && <p className="text-red-500 text-sm mb-4">{error}</p>} */}
-//         <form className="space-y-4">
-//           {/* Email Field */}
-//           <div>
-//             <label className="block text-sm font-semibold text-gray-700">Email</label>
-//             <input
-//               type="email"
-//               value=""
-//               required
-//               className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-//             />
-//           </div>
-
-//           {/* Password Field */}
-//           <div>
-//             <label className="block text-sm font-semibold text-gray-700">Password</label>
-//             <input
-//               type="password"
-//               value=""
-//               required
-//               className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-//             />
-//           </div>
-
-//           {/* Login Button */}
-//           <button
-//             type="submit"
-//             className="w-full bg-indigo-500 text-white py-3 mt-4 rounded-lg hover:bg-indigo-600 transition"
-//           >
-//             Login
-//           </button>
-//         </form>
-
-//         {/* Google Login Button */}
-//         <button
-//           className="w-full bg-red-500 text-white py-3 mt-4 rounded-lg hover:bg-red-600 transition"
-//         >
-//           Login with Google
-//         </button>
-
-//         {/* Register Link */}
-//         <div className="mt-6 text-center">
-//           <p className="text-sm">
-//             Don&apos;t have an account?{" "}
-//             <Link to="/auth/register" className="text-indigo-500 hover:underline">
-//               Register here
-//             </Link>
-//           </p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Login;
