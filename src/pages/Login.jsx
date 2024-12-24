@@ -6,7 +6,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 
 const Login = () => {
-    const { googleSignIn, userLogin } = useContext(AuthContext);
+    const { user, googleSignIn, userLogin } = useContext(AuthContext);
     const navigate = useNavigate()
 
     const handleLogin = async e => {
@@ -14,25 +14,51 @@ const Login = () => {
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.table({email, password})
+        console.table({ email, password })
 
-        try{
+        try {
             await userLogin(email, password)
             toast.success('SignIn Successful')
             navigate('/')
         }
-        catch(err){
+        catch (err) {
             toast.error(err?.message)
         }
     }
 
     const hanldeGoogleSignIn = async () => {
-        try{
+        try {
             await googleSignIn()
+
+            // save user data to db
+            const newUser = {
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+                uid: user.uid,
+            }
+            // ${import.meta.env.VITE_API_URL}
+            fetch(`${import.meta.env.VITE_API_URL}/users`, {
+                method: 'POST',
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(newUser)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.insertedId) {
+                        console.log('User created in DB');
+                    }
+                })
+                .catch(err => {
+                    console.log('Error saving user to db', err);
+                    toast.error('Failed to save user in DATABASE');
+                })
             toast.success('SignIn Successful')
             navigate('/')
         }
-        catch(err){
+        catch (err) {
             console.log(err);
             toast.error(err?.message)
         }
