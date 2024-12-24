@@ -11,6 +11,7 @@ import AssignmentDetailsPage from "../pages/AssignmentDetailsPage";
 import AssignmentSubmission from "../pages/AssignmentSubmission";
 import MyAssignments from "../pages/MyAssignments";
 import PendingAssignments from "../pages/PendingAssignments";
+import GiveMark from "../pages/GiveMark";
 
 const router = createBrowserRouter([
     {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
     {
         path: '/pending-assignments/:email',
         element: <PendingAssignments></PendingAssignments>
+    },
+    {
+        path: '/assignments/mark/:id',
+        element: <GiveMark></GiveMark>
     },
     {
         path: '/auth',

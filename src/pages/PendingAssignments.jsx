@@ -32,7 +32,8 @@ const PendingAssignments = () => {
     }, [user?.email]);
 
     const handleGiveMark = (assignmentId) => {
-        navigate(`/give-mark/${assignmentId}`);
+        // navigate(`/give-mark/${assignmentId}`);
+        navigate(`/assignments/mark/${assignmentId}`);
     };
 
     return (
