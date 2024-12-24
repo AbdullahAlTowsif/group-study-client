@@ -61,7 +61,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/my-attempted-assignments">
+                  <Link to={`/submissions/${user?.email}`}>
                     My Attempted Assignments
                   </Link>
                 </li>
@@ -114,7 +114,7 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/my-attempted-assignments">
+                    <Link to={`/submissions/${user?.email}`}>
                       My Attempted Assignments
                     </Link>
                   </li>

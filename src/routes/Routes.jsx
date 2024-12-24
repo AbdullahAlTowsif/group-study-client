@@ -9,6 +9,7 @@ import AssignmentsPage from "../pages/AssignmentsPage";
 import UpdateAssignmentPage from "../pages/UpdateAssignmentPage";
 import AssignmentDetailsPage from "../pages/AssignmentDetailsPage";
 import AssignmentSubmission from "../pages/AssignmentSubmission";
+import MyAssignments from "../pages/MyAssignments";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         // thikkor
         path: `/assignments/:id/submit`,
         element: <AssignmentSubmission></AssignmentSubmission>,
+    },
+    {
+        path: '/submissions/:email',
+        element: <MyAssignments></MyAssignments>,
     },
     {
         path: '/auth',

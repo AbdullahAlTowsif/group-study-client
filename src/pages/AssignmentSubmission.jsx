@@ -3,10 +3,11 @@ import toast from "react-hot-toast";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../provider/AuthProvider";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import axios from "axios";
 
 const AssignmentSubmission = () => {
+    const navigate = useNavigate()
     const { user } = useContext(AuthContext);
     const [assignments, setAssignments] = useState([])
     const {id} = useParams()
@@ -45,7 +46,8 @@ const AssignmentSubmission = () => {
             quickNote,
             status: "pending", // Default status
             userEmail: user?.email, // Current user's email
-            creatorEmail: assignments?.creator?.email
+            creatorEmail: assignments?.creator?.email,
+            marks: assignments?.marks
         };
 
         try {
@@ -64,6 +66,7 @@ const AssignmentSubmission = () => {
                     }
                 })
                 toast.success('Successfully Submitted')
+                navigate(`/submissions/${user?.email}`)
         }
         catch (err) {
             console.error(err);
