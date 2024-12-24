@@ -11,13 +11,12 @@ const GiveMark = () => {
     const [obtainedMarks, setObtainedMarks] = useState("");
     const [feedback, setFeedback] = useState("");
     const navigate = useNavigate();
-    const {user} = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
 
     useEffect(() => {
         const fetchAssignment = async () => {
             try {
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/assignments/mark/${id}`);
-                // const response = await fetch(`${import.meta.env.VITE_API_URL}/assignments/${id}`);
                 if (response.ok) {
                     const data = await response.json();
                     console.log(data);
@@ -37,6 +36,10 @@ const GiveMark = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (user?.email === assignment?.userEmail) {
+            toast.error("You cannot mark your own task.");
+            return;
+        }
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/assignments/mark/${id}`, {
                 method: "PUT",
@@ -65,8 +68,8 @@ const GiveMark = () => {
                 {assignment && (
                     <div className="mb-4">
                         <p>
-                        <strong>Google Docs Link:</strong>
-                        <a href={assignment.googleDocsLink} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline"> {assignment.googleDocsLink}</a>
+                            <strong>Google Docs Link:</strong>
+                            <a href={assignment.googleDocsLink} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline"> {assignment.googleDocsLink}</a>
                         </p>
 
                         <p><strong>Notes:</strong> {assignment.quickNote}</p>
