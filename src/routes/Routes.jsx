@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import AuthLayout from "../layouts/AuthLayout";
 import Register from "../pages/Register";
 import CreateAssignment from "../pages/CreateAssignment";
+import AssignmentsPage from "../pages/AssignmentsPage";
 
 const router = createBrowserRouter([
     {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
     {
         path: "/create-assignments",
         element: <CreateAssignment></CreateAssignment>
+    },
+    {
+        path: "/assignments",
+        element: <AssignmentsPage></AssignmentsPage>,
     },
     {
         path: '/auth',
