@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { AuthContext } from "../provider/AuthProvider";  // Assuming you have an AuthContext
 
 const AssignmentsPage = () => {
+    const { user } = useContext(AuthContext);  // Get the current user
     const [assignments, setAssignments] = useState([]);
 
     useEffect(() => {
@@ -26,24 +28,32 @@ const AssignmentsPage = () => {
         fetchAssignments();
     }, []);
 
-    const handleDelete = async (id) => {
-            try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/assignments/${id}`, {
-                    method: "DELETE",
-                });
-                if (response.ok) {
-                    toast.success("Assignment deleted successfully");
-                    setAssignments(assignments.filter((assignment) => assignment._id !== id));
-                } else {
-                    toast.error("Failed to delete assignment");
-                }
-            } catch (err) {
-                console.error(err);
-                toast.error("An error occurred while deleting the assignment");
+    const handleDelete = async (id, creatorEmail) => {
+        if (user?.email !== creatorEmail) {
+            // If the current user is not the creator, show an error
+            toast.error("You cannot delete this assignment. You are not the creator.");
+            return;
+        }
+
+        // Proceed with the delete process
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/assignments/${id}`, {
+                method: "DELETE",
+            });
+
+            if (response.ok) {
+                toast.success("Assignment deleted successfully");
+                setAssignments(assignments.filter((assignment) => assignment._id !== id));
+            } else {
+                toast.error("Failed to delete assignment");
             }
+        } catch (err) {
+            console.error(err);
+            toast.error("An error occurred while deleting the assignment");
+        }
     };
 
-    const confirmDelete = id => {
+    const confirmDelete = (id, creatorEmail) => {
         toast(t => (
             <div className='flex gap-3 items-center'>
                 <div>
@@ -55,8 +65,8 @@ const AssignmentsPage = () => {
                     <button
                         className='bg-red-400 text-white px-3 py-1 rounded-md'
                         onClick={() => {
-                            toast.dismiss(t.id)
-                            handleDelete(id)
+                            toast.dismiss(t.id);
+                            handleDelete(id, creatorEmail);
                         }}
                     >
                         Yes
@@ -69,8 +79,8 @@ const AssignmentsPage = () => {
                     </button>
                 </div>
             </div>
-        ))
-    }
+        ));
+    };
 
     return (
         <div>
@@ -108,7 +118,7 @@ const AssignmentsPage = () => {
                                     Update
                                 </Link>
                                 <button
-                                    onClick={() => confirmDelete(assignment._id)}
+                                    onClick={() => confirmDelete(assignment._id, assignment.creator.email)}
                                     className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600"
                                 >
                                     Delete
