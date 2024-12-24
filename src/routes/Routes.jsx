@@ -8,6 +8,7 @@ import CreateAssignment from "../pages/CreateAssignment";
 import AssignmentsPage from "../pages/AssignmentsPage";
 import UpdateAssignmentPage from "../pages/UpdateAssignmentPage";
 import AssignmentDetailsPage from "../pages/AssignmentDetailsPage";
+import AssignmentSubmission from "../pages/AssignmentSubmission";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,11 @@ const router = createBrowserRouter([
     {
         path: '/assignments/:id',
         element: <AssignmentDetailsPage></AssignmentDetailsPage>,
+    },
+    {
+        // thikkor
+        path: `/assignments/:id/submit`,
+        element: <AssignmentSubmission></AssignmentSubmission>,
     },
     {
         path: '/auth',

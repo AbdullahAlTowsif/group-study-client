@@ -29,6 +29,7 @@ const AssignmentDetailsPage = () => {
 
     const handleTakeAssignment = () => {
         // Open the modal or navigate to the submission form page
+        // thikkor
         navigate(`/assignments/${id}/submit`);
     };
 
