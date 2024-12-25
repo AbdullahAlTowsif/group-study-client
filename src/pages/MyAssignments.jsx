@@ -3,31 +3,44 @@ import { AuthContext } from "../provider/AuthProvider";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const MyAssignments = () => {
     const { user } = useContext(AuthContext);
     const [submissions, setSubmissions] = useState([]);
+    const axiosSecure = useAxiosSecure();
 
-    useEffect(() => {
-        const fetchSubmissions = async () => {
-            try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/submissions/${user?.email}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setSubmissions(data);
-                } else {
-                    toast.error("Failed to fetch submissions");
-                }
-            } catch (error) {
-                console.error(error);
-                toast.error("An error occurred while fetching submissions");
-            }
-        };
+    // useEffect(() => {
+    //     const fetchSubmissions = async () => {
+    //         try {
+    //             const response = await fetch(`${import.meta.env.VITE_API_URL}/submissions/${user?.email}`);
+    //             if (response.ok) {
+    //                 const data = await response.json();
+    //                 setSubmissions(data);
+    //             } else {
+    //                 toast.error("Failed to fetch submissions");
+    //             }
+    //         } catch (error) {
+    //             console.error(error);
+    //             toast.error("An error occurred while fetching submissions");
+    //         }
+    //     };
 
-        if (user?.email) {
-            fetchSubmissions();
-        }
-    }, [user?.email]);
+    //     if (user?.email) {
+    //         fetchSubmissions();
+    //     }
+    // }, [user?.email]);
+
+    useEffect(()=> {
+        fetchSubmissions()
+    }, [user])
+
+    const fetchSubmissions = async () => {
+        const { data } = await axiosSecure.get(`/submissions/${user?.email}`)
+        // const { data } = await axiosSecure.get(`/submissions/${submissions?.userEmail}`)
+        setSubmissions(data)
+        console.log(data);
+    }
 
     return (
         <div>
