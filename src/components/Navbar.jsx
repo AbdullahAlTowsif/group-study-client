@@ -3,13 +3,19 @@ import user_logo from "../assets/user.png";
 import logo from "../assets/group-study-logo.jpg";
 import { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
+import { ThemeContext } from "./ThemeProvider";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
-    <div className="w-11/12 mx-auto">
-      <div className="navbar bg-base-100 shadow-sm px-4">
+    <div
+      className={`w-11/12 mx-auto ${
+        theme === "dark" ? "bg-black text-white" : "bg-gray-100 text-gray-800"
+      }`}
+    >
+      <div className="navbar shadow-sm px-4">
         <div className="flex-1">
           {/* Logo and Brand Name */}
           <Link to="/" className="flex gap-2 items-center">
@@ -19,6 +25,16 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Navbar */}
+        <button
+          onClick={toggleTheme}
+          className={`px-4 py-2 rounded hidden lg:block ${
+            theme === "dark"
+              ? "bg-yellow-500 text-gray-800"
+              : "bg-blue-500 text-white"
+          }`}
+        >
+          Switch to {theme === "light" ? "Dark" : "Light"} Mode
+        </button>
         <div className="hidden lg:flex items-center">
           <ul className="menu menu-horizontal px-1">
             <li>
@@ -41,7 +57,6 @@ const Navbar = () => {
                 tabIndex={0}
                 role="button"
                 className="btn btn-ghost btn-circle avatar"
-                // title={user?.name || "User"}
                 title={user?.displayName || "User"}
               >
                 <div className="w-10 rounded-full">
@@ -54,7 +69,9 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+                className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 ${
+                  theme === "dark" ? "bg-gray-800 text-white" : "bg-base-100 text-gray-800"
+                }`}
               >
                 <li>
                   <Link to="/create-assignments" className="justify-between">
@@ -69,7 +86,9 @@ const Navbar = () => {
                 <li className="mt-2">
                   <button
                     onClick={logOut}
-                    className="bg-gray-200 block text-center"
+                    className={`block text-center ${
+                      theme === "dark" ? "bg-gray-700 text-white" : "bg-gray-200 text-gray-800"
+                    }`}
                   >
                     Logout
                   </button>
@@ -98,9 +117,10 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 ${
+                theme === "dark" ? "bg-gray-800 text-white" : "bg-base-100 text-gray-800"
+              }`}
             >
-              {/* Mobile Links */}
               <li>
                 <Link to="/assignments">Assignments</Link>
               </li>
@@ -122,7 +142,9 @@ const Navbar = () => {
                   <li className="mt-2">
                     <button
                       onClick={logOut}
-                      className="bg-gray-200 block text-center"
+                      className={`block text-center ${
+                        theme === "dark" ? "bg-gray-700 text-white" : "bg-gray-200 text-gray-800"
+                      }`}
                     >
                       Logout
                     </button>
