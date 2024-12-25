@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { compareAsc } from 'date-fns'
 
 const AssignmentDetailsPage = () => {
     const { id } = useParams(); // Assignment ID from the URL
@@ -28,6 +29,15 @@ const AssignmentDetailsPage = () => {
     }, [id, navigate]);
 
     const handleTakeAssignment = () => {
+        // check if the user can take the assignment
+        if(user?.email === assignment?.creator?.email){
+            return toast.error("You can not take the task")
+        }
+        // deadline crossed validation
+        if(compareAsc(new Date(), new Date(assignment.dueDate)) === 1){
+            return toast.error("Deadline Crossed")
+        }
+        
         // Open the modal or navigate to the submission form page
         // thikkor
         navigate(`/assignments/${id}/submit`);
