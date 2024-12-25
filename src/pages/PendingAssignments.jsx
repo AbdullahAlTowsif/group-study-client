@@ -4,32 +4,46 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const PendingAssignments = () => {
     const { user } = useContext(AuthContext);
     const [pendingAssignments, setPendingAssignments] = useState([]);
     const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure()
+
+    // useEffect(() => {
+    //     const fetchPendingAssignments = async () => {
+    //         try {
+    //             const response = await fetch(`${import.meta.env.VITE_API_URL}/pending-assignments/${user?.email}`);
+    //             if (response.ok) {
+    //                 const data = await response.json();
+    //                 setPendingAssignments(data);
+    //             } else {
+    //                 toast.error("Failed to fetch pending assignments");
+    //             }
+    //         } catch (error) {
+    //             console.error(error);
+    //             toast.error("An error occurred while fetching pending assignments");
+    //         }
+    //     };
+
+    //     if (user?.email) {
+    //         fetchPendingAssignments();
+    //     }
+    // }, [user?.email]);
 
     useEffect(() => {
-        const fetchPendingAssignments = async () => {
-            try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/pending-assignments/${user?.email}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setPendingAssignments(data);
-                } else {
-                    toast.error("Failed to fetch pending assignments");
-                }
-            } catch (error) {
-                console.error(error);
-                toast.error("An error occurred while fetching pending assignments");
-            }
-        };
+        fetchPendingAssignments()
+    }, [user])
 
-        if (user?.email) {
-            fetchPendingAssignments();
-        }
-    }, [user?.email]);
+    const fetchPendingAssignments = async () => {
+        // const { data } = await axiosSecure.get(`/pending-assignments/miftha@miftha.com`)
+        const { data } = await axiosSecure.get(`/pending-assignments/${user?.email}`)
+        // const { data } = await axiosSecure.get(`/submissions/${submissions?.userEmail}`)
+        setPendingAssignments(data)
+        console.log(data);
+    }
 
     const handleGiveMark = (assignmentId) => {
         // navigate(`/give-mark/${assignmentId}`);

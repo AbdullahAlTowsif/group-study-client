@@ -41,6 +41,7 @@ const Navbar = () => {
                 tabIndex={0}
                 role="button"
                 className="btn btn-ghost btn-circle avatar"
+                // title={user?.name || "User"}
                 title={user?.displayName || "User"}
               >
                 <div className="w-10 rounded-full">
