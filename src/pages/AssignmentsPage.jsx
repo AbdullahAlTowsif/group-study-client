@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { AuthContext } from "../provider/AuthProvider";  // Assuming you have an AuthContext
+import axios from "axios";
 // import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const AssignmentsPage = () => {
@@ -17,21 +18,30 @@ const AssignmentsPage = () => {
     useEffect(() => {
         // Fetch assignments from the backend
         const fetchAssignments = async () => {
-            try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/assignments`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setAssignments(data);
-                } else {
-                    toast.error("Failed to fetch assignments");
-                }
-            } catch (error) {
-                console.error(error);
-                toast.error("An error occurred while fetching assignments");
-            }
+            const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/assignments?filter=${filter}&search=${search}&sort=${sort}`)
+            setAssignments(data)
         };
         fetchAssignments();
-    }, []);
+    }, [filter, search, sort]);
+    console.log(assignments);
+    // useEffect(() => {
+    //     // Fetch assignments from the backend
+    //     const fetchAssignments = async () => {
+    //         try {
+    //             const response = await fetch(`${import.meta.env.VITE_API_URL}/assignments?filter=${filter}&search=${search}&sort=${sort}`);
+    //             if (response.ok) {
+    //                 const data = await response.json();
+    //                 setAssignments(data);
+    //             } else {
+    //                 toast.error("Failed to fetch assignments");
+    //             }
+    //         } catch (error) {
+    //             console.error(error);
+    //             toast.error("An error occurred while fetching assignments");
+    //         }
+    //     };
+    //     fetchAssignments();
+    // }, [filter, search, sort]);
 
     // useEffect(() => {
     //     fetchAssignments()
@@ -112,20 +122,20 @@ const AssignmentsPage = () => {
                 <div className='flex flex-col md:flex-row justify-center items-center gap-5 '>
                     <div>
                         <select
-                            name='category'
-                            id='category'
+                            name='difficulty'
+                            id='difficulty'
                             className='border p-4 rounded-lg'
                         onChange={e => setFilter(e.target.value)}
                         value={filter}
                         >
                             <option value=''>Filter By Difficulty</option>
-                            <option value='Web Development'>Easy</option>
-                            <option value='Graphics Design'>Medium</option>
-                            <option value='Digital Marketing'>Hard</option>
+                            <option value='easy'>Easy</option>
+                            <option value='medium'>Medium</option>
+                            <option value='hard'>Hard</option>
                         </select>
                     </div>
 
-                    <div className='flex p-1 overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300'>
+                    <div className='flex p-1 overflow-hidden border rounded-lg focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300'>
                         <input
                             className='px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent'
                             type='text'
