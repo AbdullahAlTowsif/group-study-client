@@ -19,7 +19,7 @@ const GiveMark = () => {
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/assignments/mark/${id}`);
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
+                    // console.log(data);
                     setAssignment(data);
                 } else {
                     toast.error("Failed to fetch assignment details");

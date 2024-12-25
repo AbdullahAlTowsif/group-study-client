@@ -59,7 +59,7 @@ const Login = () => {
             navigate('/')
         }
         catch (err) {
-            console.log(err);
+            // console.log(err);
             toast.error(err?.message)
         }
     }

@@ -39,7 +39,7 @@ const Register = () => {
 
         try{
             const result = await createNewUser(email, password)
-            console.log(result);
+            // console.log(result);
             await updateUserProfile(name, photo)
             setUser({...result.user, photoURL: photo, displayName: name})
 
@@ -56,18 +56,18 @@ const Register = () => {
             .then(res => res.json())
             .then(data => {
                 if(data.insertedId){
-                    console.log('User created in DB');
+                    // console.log('User created in DB');
                 }
             })
             .catch(err => {
-                console.log('Error saving user to db', err);
+                // console.log('Error saving user to db', err);
                 toast.error('Failed to save user in DATABASE');
             })
             toast.success('Signup Successful')
             navigate('/')
         }
         catch(err){
-            console.log(err);
+            // console.log(err);
             toast.error(err?.message)
         }
     }

@@ -8,7 +8,8 @@ The **Online Group-Study** platform is designed to help students study collabora
 
 ## Live URL
 
-You can view the live project here:
+You can view the live project here (client): https://group-study-1086a.web.app/
+You can view the live project here (server): https://group-study-server-nine.vercel.app/
 
 ## Key Features
 

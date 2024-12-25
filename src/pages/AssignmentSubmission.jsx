@@ -31,7 +31,7 @@ const AssignmentSubmission = () => {
         };
         fetchAssignments();
     }, [id, setAssignments]);
-    console.log(assignments);
+    // console.log(assignments);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

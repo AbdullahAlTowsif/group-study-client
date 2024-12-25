@@ -23,7 +23,7 @@ const MyAssignments = () => {
         try {
             const { data } = await axiosSecure.get(`/submissions/${user?.email}`);
             setSubmissions(data);
-            console.log(data);
+            // console.log(data);
         } catch (error) {
             console.error(error);
             toast.error("An error occurred while fetching submissions");

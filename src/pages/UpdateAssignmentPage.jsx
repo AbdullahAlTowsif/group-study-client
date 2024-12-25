@@ -13,7 +13,7 @@ const UpdateAssignmentPage = () => {
     const [dueDate, setDueDate] = useState("");
 
     const { id } = useParams();
-    console.log(id);
+    // console.log(id);
     const navigate = useNavigate();
 
     useEffect(() => {
