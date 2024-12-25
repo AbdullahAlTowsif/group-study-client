@@ -33,6 +33,13 @@ const AssignmentDetailsPage = () => {
         if(user?.email === assignment?.creator?.email){
             return toast.error("You can not take the task")
         }
+
+        // if there is no user
+        if(!user?.email){
+            navigate('/auth/login')
+            return toast.error("You have to login first")
+        }
+
         // deadline crossed validation
         if(compareAsc(new Date(), new Date(assignment.dueDate)) === 1){
             return toast.error("Deadline Crossed")
