@@ -18,6 +18,11 @@ const CreateAssignment = () => {
     const [dueDate, setDueDate] = useState(new Date());
 
     const handleCreateAssignment = async (e) => {
+        if(!user?.email){
+            toast.error("You have to login first")
+            navigate('/auth/login')
+            return;
+        }
         e.preventDefault();
         const form = e.target;
         const title = form.title.value;
