@@ -4,29 +4,42 @@ import toast from "react-hot-toast";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { AuthContext } from "../provider/AuthProvider";  // Assuming you have an AuthContext
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const AssignmentsPage = () => {
     const { user } = useContext(AuthContext);  // Get the current user
     const [assignments, setAssignments] = useState([]);
+    const axiosSecure = useAxiosSecure();
 
-    useEffect(() => {
-        // Fetch assignments from the backend
-        const fetchAssignments = async () => {
-            try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/assignments`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setAssignments(data);
-                } else {
-                    toast.error("Failed to fetch assignments");
-                }
-            } catch (error) {
-                console.error(error);
-                toast.error("An error occurred while fetching assignments");
-            }
-        };
-        fetchAssignments();
-    }, []);
+    // useEffect(() => {
+    //     // Fetch assignments from the backend
+    //     const fetchAssignments = async () => {
+    //         try {
+    //             const response = await fetch(`${import.meta.env.VITE_API_URL}/assignments`);
+    //             if (response.ok) {
+    //                 const data = await response.json();
+    //                 setAssignments(data);
+    //             } else {
+    //                 toast.error("Failed to fetch assignments");
+    //             }
+    //         } catch (error) {
+    //             console.error(error);
+    //             toast.error("An error occurred while fetching assignments");
+    //         }
+    //     };
+    //     fetchAssignments();
+    // }, []);
+
+    useEffect(()=> {
+        fetchAssignments()
+    }, [user])
+
+    const fetchAssignments = async () => {
+        const { data } = await axiosSecure.get(`/assignments`)
+        // const { data } = await axiosSecure.get(`/submissions/${submissions?.userEmail}`)
+        setAssignments(data)
+        console.log(data);
+    }
 
     const handleDelete = async (id, creatorEmail) => {
         if (user?.email !== creatorEmail) {
