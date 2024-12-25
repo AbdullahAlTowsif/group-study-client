@@ -37,7 +37,7 @@ const GiveMark = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (user?.email === assignment?.userEmail) {
-            toast.error("You cannot mark your own task.");
+            toast.error("You cannot mark this task.");
             return;
         }
         try {
@@ -71,8 +71,10 @@ const GiveMark = () => {
                             <strong>Google Docs Link:</strong>
                             <a href={assignment.googleDocsLink} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline"> {assignment.googleDocsLink}</a>
                         </p>
+                        <p>
+                            <strong>Notes:</strong> {assignment.quickNote ? assignment.quickNote.substring(0, 15) + (assignment.quickNote.length > 15 ? '...' : '') : 'No notes available'}
+                        </p>
 
-                        <p><strong>Notes:</strong> {assignment.quickNote}</p>
                     </div>
                 )}
 

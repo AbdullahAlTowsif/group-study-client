@@ -9,27 +9,27 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    // const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
     const provider = new GoogleAuthProvider();
 
     const createNewUser = (email, password) => {
-        // setLoading(true)
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
     const userLogin = (email, password) => {
-        // setLoading(true)
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
 
     const googleSignIn = () => {
-        // setLoading(true)
+        setLoading(true)
         return signInWithPopup(auth, provider)
     }
 
 
     const logOut = () => {
-        // setLoading(true)
+        setLoading(true)
         return signOut(auth);
     }
 
@@ -65,7 +65,8 @@ const AuthProvider = ({ children }) => {
         setUser,
         logOut,
         updateUserProfile,
-        // loading,
+        loading,
+        setLoading
     }
 
 
@@ -107,7 +108,7 @@ const AuthProvider = ({ children }) => {
                 {withCredentials: true}
             )
           }
-        //   setLoading(false)
+          setLoading(false)
         })
         return () => {
           return unsubscribe()

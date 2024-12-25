@@ -6,9 +6,10 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { AuthContext } from "../provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const CreateAssignment = () => {
-    const { user } = useContext(AuthContext);
+    const { user, loading, setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
     // const [title, setTitle] = useState("");
     // const [description, setDescription] = useState("");
@@ -66,7 +67,14 @@ const CreateAssignment = () => {
             console.error(err);
             toast.error("An error occurred. Please try again.");
         }
+        finally{
+            setLoading(false)
+        }
     };
+
+    if(loading){
+        return <LoadingSpinner></LoadingSpinner>
+    }
 
     return (
         <div>

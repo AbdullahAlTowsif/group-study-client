@@ -5,48 +5,35 @@ import Footer from "../components/Footer";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const PendingAssignments = () => {
     const { user } = useContext(AuthContext);
     const [pendingAssignments, setPendingAssignments] = useState([]);
+    const [loading, setLoading] = useState(true); // Local loading state
     const navigate = useNavigate();
-    const axiosSecure = useAxiosSecure()
-
-    // useEffect(() => {
-    //     const fetchPendingAssignments = async () => {
-    //         try {
-    //             const response = await fetch(`${import.meta.env.VITE_API_URL}/pending-assignments/${user?.email}`);
-    //             if (response.ok) {
-    //                 const data = await response.json();
-    //                 setPendingAssignments(data);
-    //             } else {
-    //                 toast.error("Failed to fetch pending assignments");
-    //             }
-    //         } catch (error) {
-    //             console.error(error);
-    //             toast.error("An error occurred while fetching pending assignments");
-    //         }
-    //     };
-
-    //     if (user?.email) {
-    //         fetchPendingAssignments();
-    //     }
-    // }, [user?.email]);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
-        fetchPendingAssignments()
-    }, [user])
+        if (user) {
+            fetchPendingAssignments();
+        }
+    }, [user]);
 
     const fetchPendingAssignments = async () => {
-        // const { data } = await axiosSecure.get(`/pending-assignments/miftha@miftha.com`)
-        const { data } = await axiosSecure.get(`/pending-assignments/${user?.email}`)
-        // const { data } = await axiosSecure.get(`/submissions/${submissions?.userEmail}`)
-        setPendingAssignments(data)
-        console.log(data);
-    }
+        setLoading(true); // Start loading
+        try {
+            const { data } = await axiosSecure.get(`/pending-assignments/${user?.email}`);
+            setPendingAssignments(data);
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred while fetching pending assignments");
+        } finally {
+            setLoading(false); // Stop loading
+        }
+    };
 
     const handleGiveMark = (assignmentId) => {
-        // navigate(`/give-mark/${assignmentId}`);
         navigate(`/assignments/mark/${assignmentId}`);
     };
 
@@ -55,7 +42,9 @@ const PendingAssignments = () => {
             <Navbar />
             <div className="max-w-5xl mx-auto my-10">
                 <h1 className="text-3xl font-bold text-center mb-6">Pending Assignments</h1>
-                {pendingAssignments.length > 0 ? (
+                {loading ? ( // Show spinner when loading
+                    <LoadingSpinner />
+                ) : pendingAssignments.length > 0 ? ( // Show assignments if available
                     <table className="w-full border-collapse border border-gray-300">
                         <thead>
                             <tr className="bg-gray-100">
