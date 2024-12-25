@@ -37,27 +37,6 @@ const UpdateAssignmentPage = () => {
         fetchAssignment();
     }, [id, user, navigate]);
 
-    // useEffect(() => {
-    //     // Fetch the assignment data by ID
-    //     const fetchAssignment = async () => {
-    //         try {
-    //             const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/assignments/update/${id}`)
-    //             if (data?.creator?.email !== user?.email) {
-    //                 toast.error("You cannot update the data! You are not the creator!")
-    //                 navigate('/')
-    //             }
-    //             else {
-    //                 setAssignment(data)
-    //                 setDueDate(data.dueDate)
-    //             }
-    //         } catch (error) {
-    //             console.error(error);
-    //             toast.error("An error occurred while fetching the assignment");
-    //         }
-    //     };
-    //     fetchAssignment();
-    // }, [id, user, navigate]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;

@@ -44,14 +44,13 @@ const AssignmentSubmission = () => {
             title: assignments?.title,
             googleDocsLink,
             quickNote,
-            status: "pending", // Default status
-            userEmail: user?.email, // Current user's email
+            status: "pending",
+            userEmail: user?.email,
             creatorEmail: assignments?.creator?.email,
             marks: assignments?.marks
         };
 
         try {
-            // thikkor
             await fetch(`${import.meta.env.VITE_API_URL}/assignments/${id}/submit`, {
                 method: "POST",
                 headers: {
@@ -92,8 +91,6 @@ const AssignmentSubmission = () => {
                             name="googleDocsLink"
                             id="googleDocsLink"
                             className="w-full p-2 border rounded-md"
-                            // value={googleDocsLink}
-                            // onChange={(e) => setGoogleDocsLink(e.target.value)}
                             required
                         />
                     </div>
@@ -110,8 +107,6 @@ const AssignmentSubmission = () => {
                             name="quickNote"
                             className="w-full p-2 border rounded-md"
                             rows="4"
-                            // value={quickNote}
-                            // onChange={(e) => setQuickNote(e.target.value)}
                             required
                         />
                     </div>

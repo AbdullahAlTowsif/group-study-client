@@ -10,7 +10,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 const PendingAssignments = () => {
     const { user } = useContext(AuthContext);
     const [pendingAssignments, setPendingAssignments] = useState([]);
-    const [loading, setLoading] = useState(true); // Local loading state
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const axiosSecure = useAxiosSecure();
 
@@ -21,7 +21,7 @@ const PendingAssignments = () => {
     }, [user]);
 
     const fetchPendingAssignments = async () => {
-        setLoading(true); // Start loading
+        setLoading(true);
         try {
             const { data } = await axiosSecure.get(`/pending-assignments/${user?.email}`);
             setPendingAssignments(data);
@@ -29,7 +29,7 @@ const PendingAssignments = () => {
             console.error(error);
             toast.error("An error occurred while fetching pending assignments");
         } finally {
-            setLoading(false); // Stop loading
+            setLoading(false);
         }
     };
 
@@ -42,9 +42,9 @@ const PendingAssignments = () => {
             <Navbar />
             <div className="max-w-5xl mx-auto my-10">
                 <h1 className="text-3xl font-bold text-center mb-6">Pending Assignments</h1>
-                {loading ? ( // Show spinner when loading
+                {loading ? (
                     <LoadingSpinner />
-                ) : pendingAssignments.length > 0 ? ( // Show assignments if available
+                ) : pendingAssignments.length > 0 ? (
                     <table className="w-full border-collapse border border-gray-300">
                         <thead>
                             <tr className="bg-gray-100">

@@ -41,21 +41,6 @@ const AuthProvider = ({ children }) => {
         })
     }
 
-    // const updateUserProfile = async (updatedData) => {
-    //     // setLoading(true);
-    //     try {
-    //         await updateProfile(auth.currentUser, updatedData);
-    //         setUser((prevUser) => ({
-    //             ...prevUser,
-    //             ...updatedData,
-    //         }));
-    //         // setLoading(false);
-    //     } catch (error) {
-    //         console.error("Error updating profile:", error);
-    //         // setLoading(false);
-    //     }
-    // };
-
     const authInfo = {
         user,
         createNewUser,
@@ -68,25 +53,6 @@ const AuthProvider = ({ children }) => {
         loading,
         setLoading
     }
-
-
-    // useEffect(() => {
-    //     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    //         if (currentUser) {
-    //             setUser({
-    //                 uid: currentUser.uid,
-    //                 email: currentUser.email,
-    //                 name: currentUser.displayName,
-    //                 photoURL: currentUser.photoURL || "",
-    //             });
-    //         } else {
-    //             setUser(null);
-    //         }
-    //         // setLoading(false);
-    //     });
-
-    //     return () => unsubscribe();
-    // }, []);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async currentUser => {

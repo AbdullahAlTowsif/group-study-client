@@ -11,10 +11,6 @@ import LoadingSpinner from "../components/LoadingSpinner";
 const CreateAssignment = () => {
     const { user, loading, setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
-    // const [title, setTitle] = useState("");
-    // const [description, setDescription] = useState("");
-    // const [marks, setMarks] = useState("");
-    // const [thumbnail, setThumbnail] = useState("");
     const [difficulty, setDifficulty] = useState("easy");
     const [dueDate, setDueDate] = useState(new Date());
 
@@ -88,8 +84,6 @@ const CreateAssignment = () => {
                         <input
                             type="text"
                             name="title"
-                            // value={title}
-                            // onChange={(e) => setTitle(e.target.value)}
                             required
                             className="w-full p-3 mt-1 border rounded-lg"
                             placeholder="Enter assignment title"
@@ -101,8 +95,6 @@ const CreateAssignment = () => {
                         <label className="block text-sm font-medium text-gray-700">Description</label>
                         <textarea
                             name="description"
-                            // value={description}
-                            // onChange={(e) => setDescription(e.target.value)}
                             required
                             className="w-full p-3 mt-1 border rounded-lg"
                             placeholder="Enter assignment description"
@@ -115,8 +107,6 @@ const CreateAssignment = () => {
                         <input
                             type="number"
                             name="marks"
-                            // value={marks}
-                            // onChange={(e) => setMarks(e.target.value)}
                             required
                             className="w-full p-3 mt-1 border rounded-lg"
                             placeholder="Enter total marks"
@@ -129,8 +119,6 @@ const CreateAssignment = () => {
                         <input
                             type="url"
                             name="thumbnail"
-                            // value={thumbnail}
-                            // onChange={(e) => setThumbnail(e.target.value)}
                             required
                             className="w-full p-3 mt-1 border rounded-lg"
                             placeholder="Enter thumbnail URL"

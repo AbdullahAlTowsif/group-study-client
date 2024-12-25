@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import Lottie from "react-lottie";
-import animationData from "../assets/login-animation.json"; // You can replace this with your own Lottie animation JSON file
+import animationData from "../assets/login-animation.json";
 import { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
@@ -75,7 +75,7 @@ const Login = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-white"> {/* Changed bg-gradient-to-r to bg-white */}
+        <div className="flex items-center justify-center min-h-screen bg-white">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
                 <div className="flex justify-center mb-6">
                     {/* Lottie animation */}

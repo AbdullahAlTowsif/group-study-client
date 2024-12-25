@@ -35,7 +35,6 @@ const router = createBrowserRouter([
         element: <AssignmentDetailsPage></AssignmentDetailsPage>,
     },
     {
-        // thikkor
         path: `/assignments/:id/submit`,
         element: <AssignmentSubmission></AssignmentSubmission>,
     },
