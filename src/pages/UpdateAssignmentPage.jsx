@@ -13,7 +13,6 @@ const UpdateAssignmentPage = () => {
     const [dueDate, setDueDate] = useState("");
 
     const { id } = useParams();
-    // console.log(id);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -69,64 +68,64 @@ const UpdateAssignmentPage = () => {
     };
 
     return (
-        <div>
-            <Navbar></Navbar>
+        <div className="min-h-screen bg-white dark:bg-black dark:text-white">
+            <Navbar />
             <div className="my-5">
                 <h2 className="text-2xl font-bold text-center mb-6">Update Assignment</h2>
                 {assignment ? (
                     <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
                         <div className="mb-4">
-                            <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
+                            <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
                             <input
                                 type="text"
                                 name="title"
                                 id="title"
                                 defaultValue={assignment.title}
-                                className="w-full p-2 border rounded-md"
+                                className="w-full p-2 border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                                 required
                             />
                         </div>
 
                         <div className="mb-4">
-                            <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+                            <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
                             <textarea
                                 id="description"
                                 name="description"
                                 defaultValue={assignment.description}
-                                className="w-full p-2 border rounded-md"
+                                className="w-full p-2 border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                                 required
                             />
                         </div>
 
                         <div className="mb-4">
-                            <label htmlFor="marks" className="block text-sm font-medium text-gray-700">Marks</label>
+                            <label htmlFor="marks" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Marks</label>
                             <input
                                 type="number"
                                 name="marks"
                                 defaultValue={assignment.marks}
                                 id="marks"
-                                className="w-full p-2 border rounded-md"
+                                className="w-full p-2 border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                                 required
                             />
                         </div>
 
                         <div className="mb-4">
-                            <label htmlFor="thumbnail" className="block text-sm font-medium text-gray-700">Thumbnail URL</label>
+                            <label htmlFor="thumbnail" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Thumbnail URL</label>
                             <input
                                 type="text"
                                 name="thumbnail"
                                 defaultValue={assignment.thumbnail}
                                 id="thumbnail"
-                                className="w-full p-2 border rounded-md"
+                                className="w-full p-2 border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                                 required
                             />
                         </div>
 
                         <div className="mb-4">
-                            <label htmlFor="difficulty" className="block text-sm font-medium text-gray-700">Difficulty</label>
+                            <label htmlFor="difficulty" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Difficulty</label>
                             <select
                                 id="difficulty"
-                                className="w-full p-2 border rounded-md"
+                                className="w-full p-2 border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                                 value={difficulty}
                                 onChange={(e) => setDifficulty(e.target.value)}
                                 required
@@ -138,11 +137,11 @@ const UpdateAssignmentPage = () => {
                         </div>
 
                         <div className="mb-4">
-                            <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700">Due Date</label>
+                            <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Due Date</label>
                             <input
                                 type="date"
                                 id="dueDate"
-                                className="w-full p-2 border rounded-md"
+                                className="w-full p-2 border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                                 value={dueDate ? new Date(dueDate).toISOString().split("T")[0] : ""}
                                 onChange={(e) => setDueDate(e.target.value)}
                                 required
@@ -151,7 +150,7 @@ const UpdateAssignmentPage = () => {
 
                         <button
                             type="submit"
-                            className="bg-blue-500 text-white py-2 px-4 rounded-md"
+                            className="bg-blue-500 text-white py-2 px-4 rounded-md dark:bg-blue-600 dark:hover:bg-blue-500"
                         >
                             Update Assignment
                         </button>
@@ -160,7 +159,7 @@ const UpdateAssignmentPage = () => {
                     <p>Loading...</p>
                 )}
             </div>
-            <Footer></Footer>
+            <Footer />
         </div>
     );
 };
