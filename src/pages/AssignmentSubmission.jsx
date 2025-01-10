@@ -4,14 +4,12 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../provider/AuthProvider";
 import { useNavigate, useParams } from "react-router-dom";
-// import axios from "axios";
 
 const AssignmentSubmission = () => {
     const navigate = useNavigate()
     const { user } = useContext(AuthContext);
-    const [assignments, setAssignments] = useState([])
-    const {id} = useParams()
-    console.log(id);
+    const [assignments, setAssignments] = useState([]);
+    const { id } = useParams();
 
     useEffect(() => {
         // Fetch assignments from the backend
@@ -31,14 +29,13 @@ const AssignmentSubmission = () => {
         };
         fetchAssignments();
     }, [id, setAssignments]);
-    // console.log(assignments);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;
         const googleDocsLink = form.googleDocsLink.value;
         const quickNote = form.quickNote.value;
-        console.table({googleDocsLink, quickNote});
+        console.table({ googleDocsLink, quickNote });
 
         const submissionData = {
             title: assignments?.title,
@@ -47,7 +44,7 @@ const AssignmentSubmission = () => {
             status: "pending",
             userEmail: user?.email,
             creatorEmail: assignments?.creator?.email,
-            marks: assignments?.marks
+            marks: assignments?.marks,
         };
 
         try {
@@ -58,31 +55,30 @@ const AssignmentSubmission = () => {
                 },
                 body: JSON.stringify(submissionData),
             })
-                .then(res => res.json())
-                .then(data => {
+                .then((res) => res.json())
+                .then((data) => {
                     if (data.insertedId) {
-                        console.log('Assignment Submission added to DB');
+                        console.log("Assignment Submission added to DB");
                     }
-                })
-                toast.success('Successfully Submitted')
-                navigate(`/submissions/${user?.email}`)
-        }
-        catch (err) {
+                });
+            toast.success("Successfully Submitted");
+            navigate(`/submissions/${user?.email}`);
+        } catch (err) {
             console.error(err);
             toast.error("An error occurred. Please try again.");
         }
     };
 
     return (
-        <div>
-            <Navbar></Navbar>
-            <div className="max-w-lg mx-auto mt-10 p-6 border rounded-md shadow-md my-5">
+        <div className="min-h-screen bg-white dark:bg-black dark:text-white">
+            <Navbar />
+            <div className="max-w-lg mx-auto mt-10 p-6 border rounded-md shadow-md my-5 dark:bg-gray-800 dark:border-gray-700">
                 <h2 className="text-2xl font-bold mb-6 text-center">Submit Assignment</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label
                             htmlFor="googleDocsLink"
-                            className="block text-sm font-medium text-gray-700"
+                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                         >
                             Google Docs Link
                         </label>
@@ -90,7 +86,7 @@ const AssignmentSubmission = () => {
                             type="url"
                             name="googleDocsLink"
                             id="googleDocsLink"
-                            className="w-full p-2 border rounded-md"
+                            className="w-full p-2 border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                             required
                         />
                     </div>
@@ -98,14 +94,14 @@ const AssignmentSubmission = () => {
                     <div className="mb-4">
                         <label
                             htmlFor="quickNote"
-                            className="block text-sm font-medium text-gray-700"
+                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                         >
                             Quick Note
                         </label>
                         <textarea
                             id="quickNote"
                             name="quickNote"
-                            className="w-full p-2 border rounded-md"
+                            className="w-full p-2 border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                             rows="4"
                             required
                         />
@@ -113,13 +109,13 @@ const AssignmentSubmission = () => {
 
                     <button
                         type="submit"
-                        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+                        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500"
                     >
                         Submit Assignment
                     </button>
                 </form>
             </div>
-            <Footer></Footer>
+            <Footer />
         </div>
     );
 };
