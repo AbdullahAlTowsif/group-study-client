@@ -4,6 +4,7 @@ import Banner from "../components/Banner";
 import Features from "../components/Features";
 import FAQ from "../components/FAQ";
 import ImpactStories from "../components/ImpactStories";
+import Testimonial from "../components/Testimonial";
 
 const MainLayout = () => {
     return (
@@ -12,6 +13,7 @@ const MainLayout = () => {
             <Banner></Banner>
             <Features></Features>
             <ImpactStories></ImpactStories>
+            <Testimonial></Testimonial>
             <FAQ></FAQ>
             <Footer></Footer>
         </div>
