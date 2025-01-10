@@ -27,14 +27,17 @@ const ImpactStories = () => {
 
     return (
         <div className="my-5">
-            <div className="w-11/12 mx-auto bg-gray-100 text-center py-16 px-6">
+            <div className="w-11/12 mx-auto bg-gray-100 text-center py-16 px-6 dark:bg-black dark:text-white">
                 <h2 className="text-4xl font-bold mb-6">Impact Stories</h2>
-                <p className="text-lg text-gray-600 mb-12">
+                <p className="text-lg text-gray-600 mb-12 dark:text-gray-300">
                     Discover how your contributions have transformed lives and brought positive change across communities.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {stories.map((story) => (
-                        <div key={story.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div
+                            key={story.id}
+                            className="bg-white rounded-lg shadow-md overflow-hidden dark:bg-gray-800"
+                        >
                             <img
                                 src={story.image}
                                 alt={story.title}
@@ -42,7 +45,7 @@ const ImpactStories = () => {
                             />
                             <div className="p-6">
                                 <h3 className="text-xl font-bold mb-2">{story.title}</h3>
-                                <p className="text-gray-600 mb-4">{story.description}</p>
+                                <p className="text-gray-600 mb-4 dark:text-gray-400">{story.description}</p>
                             </div>
                         </div>
                     ))}
