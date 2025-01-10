@@ -7,64 +7,60 @@ import toast from "react-hot-toast";
 
 const Login = () => {
     const { user, googleSignIn, userLogin } = useContext(AuthContext);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const handleLogin = async e => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.table({ email, password })
 
         try {
-            await userLogin(email, password)
-            toast.success('SignIn Successful')
-            navigate('/')
+            await userLogin(email, password);
+            toast.success("SignIn Successful");
+            navigate("/");
+        } catch (err) {
+            toast.error(err?.message);
         }
-        catch (err) {
-            toast.error(err?.message)
-        }
-    }
+    };
 
     const hanldeGoogleSignIn = async () => {
         try {
-            await googleSignIn()
+            await googleSignIn();
 
-            // save user data to db
+            // Save user data to DB
             const newUser = {
                 name: user.displayName,
                 email: user.email,
                 photo: user.photoURL,
                 uid: user.uid,
-            }
-            // ${import.meta.env.VITE_API_URL}
+            };
+
             fetch(`${import.meta.env.VITE_API_URL}/users`, {
-                method: 'POST',
+                method: "POST",
                 headers: {
                     "content-type": "application/json",
                 },
-                body: JSON.stringify(newUser)
+                body: JSON.stringify(newUser),
             })
-                .then(res => res.json())
-                .then(data => {
+                .then((res) => res.json())
+                .then((data) => {
                     if (data.insertedId) {
-                        console.log('User created in DB');
+                        console.log("User created in DB");
                     }
                 })
-                .catch(err => {
-                    console.log('Error saving user to db', err);
-                    toast.error('Failed to save user in DATABASE');
-                })
-            toast.success('SignIn Successful')
-            navigate('/')
-        }
-        catch (err) {
-            // console.log(err);
-            toast.error(err?.message)
-        }
-    }
+                .catch((err) => {
+                    console.log("Error saving user to DB", err);
+                    toast.error("Failed to save user in DATABASE");
+                });
 
-    // Lottie animation options
+            toast.success("SignIn Successful");
+            navigate("/");
+        } catch (err) {
+            toast.error(err?.message);
+        }
+    };
+
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -75,10 +71,9 @@ const Login = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-white">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
+        <div className="flex items-center justify-center min-h-screen bg-white dark:bg-black dark:text-white">
+            <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-lg w-full sm:w-96">
                 <div className="flex justify-center mb-6">
-                    {/* Lottie animation */}
                     <Lottie options={defaultOptions} height={150} width={150} />
                 </div>
                 <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
@@ -86,23 +81,23 @@ const Login = () => {
                 <form onSubmit={handleLogin} className="space-y-4">
                     {/* Email Field */}
                     <div>
-                        <label className="block text-sm font-semibold text-gray-700">Email</label>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Email</label>
                         <input
                             type="email"
                             name="email"
                             required
-                            className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="w-full p-3 mt-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
                     </div>
 
                     {/* Password Field */}
                     <div>
-                        <label className="block text-sm font-semibold text-gray-700">Password</label>
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Password</label>
                         <input
                             type="password"
                             name="password"
                             required
-                            className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="w-full p-3 mt-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
                     </div>
 
